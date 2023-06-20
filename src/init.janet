@@ -53,31 +53,25 @@
          :let [i (+ (* y width) x)]]
     (prin (braille (pixels i)))))
 
-(def canvas (new 10 5))
-(for x 0 20
-  (draw canvas [x x])
-  (draw canvas [x (- 20 x)]))
+(defn plot [f [w h] x-scale y-scale &named axis]
+  (default axis true)
+  (def canvas (new w h))
+  (def [w h] (bounds canvas))
+  (def cx (/ w 2))
+  (def cy (/ h 2))
 
-(for x 0 20
-  (draw canvas [10 x])
-  (draw canvas [x 10]))
+  (def y-scale (* y-scale (/ (+ h 1) h)))
 
-(test-stdout (print-canvas canvas) `
-  ⠑⢄⠀⠀⠀⡇⠀⠀⢀⠔
-  ⠀⠀⠑⢄⠀⡇⢀⠔⠁⠀
-  ⠤⠤⠤⠤⢵⣷⠥⠤⠤⠤
-  ⠀⠀⢀⠔⠁⡇⠑⢄⠀⠀
-  ⢀⠔⠁⠀⠀⡇⠀⠀⠑⢄
-`)
-
-(for x 0 20
-  (for y 0 20
-    (draw canvas [x y])))
-
-(test-stdout (print-canvas canvas) `
-  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-`)
+  (when axis
+    (for i 0 h
+      (draw canvas [cx i]))
+    (for i 0 w
+      (draw canvas [i cy])))
+  # this should be drawing lines, not points, in case the value
+  # changes rapidly
+  (for i 0 w
+    # x spans -0.5 to 0.5
+    (def x (/ (- i cx) w))
+    (def y (* (/ cy y-scale) (f (* x 2 x-scale))))
+    (draw canvas [(+ cx (math/round (* x w))) (+ cy (math/round y))]))
+  (print-canvas canvas))
