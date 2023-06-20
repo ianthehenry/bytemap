@@ -57,21 +57,22 @@
   (default axis true)
   (def canvas (new w h))
   (def [w h] (bounds canvas))
-  (def cx (/ w 2))
-  (def cy (/ h 2))
-
-  (def y-scale (* y-scale (/ (+ h 1) h)))
 
   (when axis
     (for i 0 h
-      (draw canvas [cx i]))
+      (draw canvas [(/ w 2) i]))
     (for i 0 w
-      (draw canvas [i cy])))
-  # this should be drawing lines, not points, in case the value
-  # changes rapidly
+      (draw canvas [i (/ h 2)])))
+
+  # we don't want to clip the extreme values off the canvas,
+  # so we narrow the y range slightly
+  (def y-scale (* y-scale (/ (+ h 1) h)))
+
   (for i 0 w
-    # x spans -0.5 to 0.5
-    (def x (/ (- i cx) w))
-    (def y (* (/ cy y-scale) (f (* x 2 x-scale))))
-    (draw canvas [(+ cx (math/round (* x w))) (+ cy (math/round y))]))
+    # x spans -0.5 to 0.5 (inclusive!)
+    (def x (- (/ i (- w 1)) 0.5))
+    (def y (/ (f (* x 2 x-scale)) y-scale 2))
+    (draw canvas
+      [(math/round (* (+ x 0.5) (- w 1)))
+       (math/round (* (+ y 0.5) h))]))
   (print-canvas canvas))
