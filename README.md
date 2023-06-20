@@ -3,6 +3,21 @@
 Bytemap is a library for making bitmaps out of braille characters (a braille character contains eight "bits").
 
 ```janet
+(plot math/sin [40 10] math/pi 1)
+
+# ⠀⠀⠀⠀⠀⠀⢀⠤⠒⠒⠑⠒⠤⡀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+# ⠀⠀⠀⠀⢀⠔⠁⠀⠀⠀⠀⠀⠀⠈⠢⡀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+# ⠀⠀⠀⡠⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠢⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+# ⠀⢀⠌⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⡀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+# ⠠⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢄⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+# ⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⡯⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⢉⠍
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠑⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠂⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠈⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠔⠁⠀⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠑⢄⠀⠀⠀⠀⠀⠀⠀⠀⡠⠊⠀⠀⠀⠀
+# ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠑⠤⣀⡀⣀⣀⠤⠊⠀⠀⠀⠀⠀⠀
+```
+
+```janet
 (def canvas (new 10 5))
 (for x 0 20
   (draw canvas [x x])
@@ -12,11 +27,11 @@ Bytemap is a library for making bitmaps out of braille characters (a braille cha
   (draw canvas [10 x])
   (draw canvas [x 10]))
 
-(test-stdout (print-canvas canvas) `
-  ⠑⢄⠀⠀⠀⡇⠀⠀⢀⠔
-  ⠀⠀⠑⢄⠀⡇⢀⠔⠁⠀
-  ⠤⠤⠤⠤⢵⣷⠥⠤⠤⠤
-  ⠀⠀⢀⠔⠁⡇⠑⢄⠀⠀
-  ⢀⠔⠁⠀⠀⡇⠀⠀⠑⢄
-`)
+(print-canvas canvas)
+
+# ⠑⢄⠀⠀⠀⡇⠀⠀⢀⠔
+# ⠀⠀⠑⢄⠀⡇⢀⠔⠁⠀
+# ⠤⠤⠤⠤⢵⣷⠥⠤⠤⠤
+# ⠀⠀⢀⠔⠁⡇⠑⢄⠀⠀
+# ⢀⠔⠁⠀⠀⡇⠀⠀⠑⢄
 ```
