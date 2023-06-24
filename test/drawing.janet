@@ -21,9 +21,9 @@
 
 (deftest "fill"
   (def canvas (new 10 5))
-  (for x 0 20
-    (for y 0 20
-      (draw-point canvas [x y])))
+  (loop [x :range [0 30]
+         y :range [0 30]]
+    (draw-point canvas [x y]))
 
   (test-stdout (print-canvas canvas) `
     ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
