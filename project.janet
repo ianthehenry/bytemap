@@ -3,8 +3,7 @@
   :description "text-based canvas"
   :version "0.0.0"
   :dependencies
-    [{:url "https://github.com/ianthehenry/judge.git"
-      :tag "v2.6.1"}])
+    ["https://github.com/ianthehenry/judge.git"])
 
 (declare-source
   :prefix "bytemap"
